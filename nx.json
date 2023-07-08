@@ -1,5 +1,17 @@
 {
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "implicitDependencies": {
+    "go.mod": "*"
+  },
+  "plugins": [
+    "@nx-go/nx-go"
+  ],
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx-cloud",
@@ -12,13 +24,6 @@
         ],
         "accessToken": "MzIwMzFhZTItOWE3Yi00YWZiLTlkZmItYjNhOGIwMjRiZTM3fHJlYWQtd3JpdGU="
       }
-    }
-  },
-  "targetDefaults": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ]
     }
   }
 }
