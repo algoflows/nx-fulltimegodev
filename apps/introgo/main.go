@@ -62,7 +62,58 @@ func (player Player) getHealth() int {
 	return player.health
 }
 
+type NumberStorer interface {
+	GetAll() ([]int, error)
+	Put(int) error
+}
+
+type MongoDBNumberStore struct {
+	// some values
+}
+
+type PostgressNumberStore struct {
+	// postgress values (db connection)
+}
+
+func (p PostgressNumberStore) GetAll() ([]int, error) {
+	return []int{1, 2, 3, 4, 5, 6, 7}, nil
+}
+
+func (m PostgressNumberStore) Put(number int) error {
+	fmt.Println("store the number into the Postgress storage")
+	return nil
+}
+
+func (m MongoDBNumberStore) GetAll() ([]int, error) {
+	return []int{1, 2, 3}, nil
+}
+
+func (m MongoDBNumberStore) Put(number int) error {
+	fmt.Println("store the number into the mongoDB storage")
+	return nil
+}
+
+type ApiServer struct {
+	NumberStore NumberStorer
+}
+
 func main() {
+	// understanding interfaces
+	apiServer := ApiServer{
+		NumberStore: PostgressNumberStore{},
+	}
+
+	// logic
+	if err := apiServer.NumberStore.Put(1); err != nil {
+		panic(err)
+	}
+
+	numbers, err := apiServer.NumberStore.GetAll()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Interface numbers", numbers)
+
 	var version int
 	const pi = 3.14159
 	// pi = 3.14 // error: cannot assign to pi
@@ -134,7 +185,7 @@ func main() {
 	}
 
 	// arrays
-	numbers := []int{1, 2, 3, 4, 5}
+	numbers = []int{1, 2, 3, 4, 5}
 	otherNumbers := make([]int, 5)
 	fmt.Printf("Numbers: %+v\n", numbers)
 	for i := 0; i < len(numbers); i++ {
