@@ -147,6 +147,44 @@ func main() {
 	fmt.Printf("Damage of weapon (%s) (%d):\n ", Axe, getDamage(Axe))
 	fmt.Printf("Damage of weapon (%s) (%d):\n ", Sword, getDamage(Sword))
 	fmt.Printf("Damage of weapon (%s) (%d):\n ", WoodenStick, getDamage(WoodenStick))
+
+	// loops
+	for i := 0; i < 10; i++ {
+		fmt.Printf("it: %d\n", i)
+	}
+
+	numbers = []int{1, 2, 3, 4, 5}
+	for i := 0; i < len(numbers); i++ {
+		fmt.Printf("Number: %d\n", numbers[i])
+	}
+
+	names := []string{"John", "Jane", "Jack"}
+	for i, v := range names {
+		fmt.Printf("Index: %d, Value: %s\n", i, v)
+	}
+
+	for _, v := range names {
+		if v == "Jack" {
+			break
+		}
+		fmt.Printf("Value: %s\n", v)
+	}
+	fmt.Println("Done")
+
+	for k, v := range users {
+		fmt.Printf("Key: %s, Value: %d\n", k, v)
+	}
+
+	// switch case
+	name := "John"
+	switch name {
+	case "John":
+		fmt.Println("John")
+	case "Jane":
+		fmt.Println("Jane")
+	default:
+		fmt.Println("Unknown")
+	}
 }
 
 func (w WeaponType) String() string {
